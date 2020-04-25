@@ -1,4 +1,4 @@
-const maxIterations = 8;
+const maxIterations = 5;
 let length = 0;
 
 function setup() {
@@ -9,45 +9,58 @@ function setup() {
     length = window.innerWidth * 0.8;
   }
   background(51);
-  translate(width / 2, (height - (length * sqrt(3)) / 2) / 2);
+  angleMode(DEGREES);
+  rotate(180);
+  fill(255);
   stroke(255);
-  SierpinskiGasket(length, 0);
+  translate((width + length) / -2, -height / 1.5);
+  KochKurve(length, 0);
 }
 
-function SierpinskiGasket(len, iterations = maxIterations) {
+function KochKurve(len, iterations) {
   if (iterations >= maxIterations) {
     return;
   }
-  fill(0);
-  angleMode(DEGREES);
-  const h = (len * sqrt(3)) / 2;
-  rotate(30);
-  triangle(0, 0, 0, len, h, len / 2);
+  const h = len / 2;
+  triangle(0, 0, len / 2, h, len, 0);
 
   push();
-  rotate(30);
-  triangle(len / 2, 0, (len * 3) / 4, h / 2, (len * 1) / 4, h / 2);
-  pop();
-
-  stroke(255, 255, 0);
-  push();
-  rotate(-30);
-  SierpinskiGasket(len / 2, iterations + 1);
+  rotate(45);
+  translate(len / 4, 0);
+  KochKurve(len / 4, iterations + 1);
   pop();
 
   push();
-
-  stroke(0, 255, 255);
-  rotate(-30);
-  translate(len / 4, h / 2);
-  SierpinskiGasket(len / 2, iterations + 1);
+  rotate(45);
+  translate(len / 1.8, 0);
+  KochKurve(len / 3 / 3, iterations + 1);
   pop();
 
-  stroke(0, 255, 0);
   push();
-  rotate(-30);
-  translate(-len / 4, h / 2);
-  SierpinskiGasket(len / 2, iterations + 1);
+  rotate(45);
+  translate(len / 12, 0);
+  KochKurve(len / 3 / 3, iterations + 1);
+  pop();
+
+  push();
+  translate(len, 0);
+  rotate(-45);
+  translate(-len / 2, 0);
+  KochKurve(len / 4, iterations + 1);
+  pop();
+
+  push();
+  translate(len, 0);
+  rotate(-45);
+  translate(-len / 5, 0);
+  KochKurve(len / 3 / 3, iterations + 1);
+  pop();
+
+  push();
+  translate(len, 0);
+  rotate(-45);
+  translate(-len / 1.5, 0);
+  KochKurve(len / 3 / 3, iterations + 1);
   pop();
 }
 
